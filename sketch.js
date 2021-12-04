@@ -5,15 +5,17 @@ const Constraint = Matter.Constraint;
 
 var engine, world;
 var canvas;
-var palyer, playerBase, playerArcher;
+var palyer, playerBase, playerArcher,playerAlvo;
 var arrow;
 var baseimage;
 var playerimage;
+var alvoimage;
 
 function preload() {
   backgroundImg = loadImage("./assets/background.png");
   baseimage = loadImage("./assets/base.png");
   playerimage = loadImage("./assets/player.png");
+  alvoimage = loadImage("./assets/board.png");
 }
 
 function setup() {
@@ -32,8 +34,13 @@ function setup() {
   World.add(world, playerBase);
 
   player = Bodies.rectangle(250, playerBase.position.y - 160, 50, 180, options);
-  World.add(world,player)
+  World.add(world,player);
 
+  playerAlvo = Bodies.rectangle(800, playerBase.position.y - 220, 50, 180, options);
+  World.add(world,playerAlvo);
+
+  
+  
   playerArcher = new PlayerArcher(
     340,
     playerBase.position.y - 112,
@@ -53,6 +60,8 @@ function draw() {
   background(backgroundImg);
   image(baseimage,playerBase.position.x,playerBase.position.y,180,150)
   image(playerimage,player.position.x,player.position.y,50,180)
+  image(alvoimage,playerAlvo.position.x,playerAlvo.position.y,200,200)
+  
   Engine.update(engine);
 
   playerArcher.display();
@@ -60,8 +69,8 @@ function draw() {
 
   if (keyCode === 32) {
     // arrow.(playerArcher.body.angle);
-    // arrow.shoot(playerArcher.angle);
-    arrow.shoot(playerArcher.body.angle);
+    arrow.shoot(0);
+    // arrow.shoot(playerArcher.body.angle);
     // arrow.shoot(playerArcher);
   }
 
